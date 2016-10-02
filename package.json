@@ -2,7 +2,7 @@
   "name": "nuki-bridge-api",
   "version": "1.0.0",
   "description": "An API for Nuki Bridge",
-  "main": "lib/bridge.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha -R spec ./test/"
   },

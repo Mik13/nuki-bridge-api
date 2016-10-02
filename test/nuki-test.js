@@ -36,11 +36,11 @@ describe('Nuki Bridge API', function () {
         nuki._request = function mockRequest (action) {
           return Promise.try(function () {
             if (counter === 0) {
-              return {"state": 1, "stateName": "locked", "batteryCritical": true, success: "true"};
+              return {"state": 1, "stateName": "locked", "batteryCritical": true, success: true};
             }
 
             if (action === 'lockState') {
-              return {"state": 1, "stateName": "locked", "batteryCritical": false, success: "true"};
+              return {"state": 1, "stateName": "locked", "batteryCritical": false, success: true};
             }
 
             if (action === 'lockAction') {
