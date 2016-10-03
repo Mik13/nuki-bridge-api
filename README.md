@@ -18,7 +18,7 @@ var bridge = new NukiBridgeApi.Bridge(ip, port, token);
 ``` js
 var bridge = new NukiBridgeApi.Bridge(ip, port, token);
 
-bridge.getList().then(function gotNukis (nukis) {
+bridge.list().then(function gotNukis (nukis) {
     // Do something with the nukis
 });
 ```
