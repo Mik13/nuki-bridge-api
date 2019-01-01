@@ -35,6 +35,24 @@ describe('Nuki Bridge API', function () {
       });
     });
 
+    it('should be able to get one nuki with validation', function () {
+      return bridgeInstance.list().then(function (nukis) {
+        return bridgeInstance.get(nukis[0].nukiId);
+      });
+    });
+
+    it('should be able to get an error on getting one nuki with wrong id with validation', function () {
+      return bridgeInstance.get(-1).then(function () {
+        throw new Error('did not validate nuki correctly');
+      }, function () {
+        return 'everything ok!';
+      });
+    });
+
+    it('should be able to get one nuki with wrong id without validation', function () {
+      return bridgeInstance.get(-1, true);
+    });
+
     describe('Nuki Instance', function () {
       var counter = 0;
 
