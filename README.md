@@ -61,15 +61,20 @@ var bridge = new NukiBridgeApi.Bridge(ip, port, token);
 bridge.list().then(function gotNukis (nukis) {
     nukis.forEach(function(nuki) {
     
-        nuki.lockState().then(function (lockState) {
-            if (lockState === lockStates.LOCKED) {
-                return nuki.lockAction(lockActions.UNLOCK);
-            } else if (lockState === lockStates.UNLOCKED) {
-                return nuki.lockAction(lockActions.LOCK);
-            }
-        });
+        ... do something (see below) ...
         
     });
+});
+```
+
+Get the current lock state and perform an UNLOCK / LOCK action
+```js
+nuki.lockState().then(function (lockState) {
+    if (lockState === lockStates.LOCKED) {
+        return nuki.lockAction(lockActions.UNLOCK);
+    } else if (lockState === lockStates.UNLOCKED) {
+        return nuki.lockAction(lockActions.LOCK);
+    }
 });
 ```
 
