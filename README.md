@@ -56,14 +56,20 @@ var NukiBridgeApi = require('nuki-bridge-api');
 var lockStates = NukiBridgeApi.lockState;
 var lockActions = NukiBridgeApi.lockAction;
 
-...
+var bridge = new NukiBridgeApi.Bridge(ip, port, token);
 
-nuki.lockState().then(function (lockState) {
-    if (lockState === lockStates.LOCKED) {
-        return nuki.lockAction(lockActions.UNLOCK);
-    } else if (lockState === lockStates.UNLOCKED) {
-        return nuki.lockAction(lockActions.LOCK);
-    }
+bridge.list().then(function gotNukis (nukis) {
+    nukis.forEach(function(nuki) {
+    
+        nuki.lockState().then(function (lockState) {
+            if (lockState === lockStates.LOCKED) {
+                return nuki.lockAction(lockActions.UNLOCK);
+            } else if (lockState === lockStates.UNLOCKED) {
+                return nuki.lockAction(lockActions.LOCK);
+            }
+        });
+        
+    });
 });
 ```
 
@@ -81,7 +87,7 @@ nuki.addCallback('localhost', 12321, true).then(function gotCallbackRegistered (
 });
 ```
 
-###Callbacks
+### Callbacks
 The callbacks which you get with `getCallbacks` or `addCallback` have the functions
 `remove` which removes the callback from the bridge (and closes the webserver which
 gets created when you call `addCallback` with `listen=true`) and `startListen` which
