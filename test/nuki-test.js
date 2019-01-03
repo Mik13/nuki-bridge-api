@@ -93,4 +93,23 @@ describe('Nuki Bridge API', function () {
       });
     });
   });
+
+  describe('Bridge Discovery', function () {
+    before(function () {
+      API.DiscoveredBridge.enableTestMode();
+    });
+
+    it('should be able to get all local bridges', function () {
+      return API.DiscoveredBridge.discover().then(function (bridges) {
+        assert.ok(bridges.length);
+
+        return bridges[0].connect('token').then(function (bridge) {
+          assert.ok(bridge);
+          assert.ok(bridge.token);
+
+          bridgeInstance = bridge;
+        });
+      });
+    });
+  });
 });

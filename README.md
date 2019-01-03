@@ -4,7 +4,7 @@ An API for Nuki Bridge
 ## How it works
 
 ### Get Bridge Connection
-``` js
+```js
 var NukiBridgeApi = require('nuki-bridge-api');
 
 var ip = '127.0.0.1';
@@ -14,8 +14,20 @@ var token = 'token';
 var bridge = new NukiBridgeApi.Bridge(ip, port, token);
 ```
 
+### Bridge Discovery
+```js
+var NukiBridgeApi = require('nuki-bridge-api');
+
+var bridge = NukiBridgeApi.DiscoveredBridge.discover().then(function connectNow (bridges) {
+    // Connect to a bridge
+    return bridges[0].connect();
+}).then(function gotRealBridge (bridge) {
+    // Do something with the bridge
+});
+```
+
 ### Get Nukis
-``` js
+```js
 var bridge = new NukiBridgeApi.Bridge(ip, port, token);
 
 bridge.list().then(function gotNukis (nukis) {
@@ -81,7 +93,7 @@ nuki.addCallback('localhost', 12321, true).then(function gotCallbackRegistered (
 });
 ```
 
-###Callbacks
+### Callbacks
 The callbacks which you get with `getCallbacks` or `addCallback` have the functions
 `remove` which removes the callback from the bridge (and closes the webserver which
 gets created when you call `addCallback` with `listen=true`) and `startListen` which
