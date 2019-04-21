@@ -35,6 +35,24 @@ describe('Nuki Bridge API', function () {
       });
     });
 
+    it('should be able to get one nuki with validation', function () {
+      return bridgeInstance.list().then(function (nukis) {
+        return bridgeInstance.get(nukis[0].nukiId);
+      });
+    });
+
+    it('should be able to get an error on getting one nuki with wrong id with validation', function () {
+      return bridgeInstance.get(-1).then(function () {
+        throw new Error('did not validate nuki correctly');
+      }, function () {
+        return 'everything ok!';
+      });
+    });
+
+    it('should be able to get one nuki with wrong id without validation', function () {
+      return bridgeInstance.get(-1, true);
+    });
+
     describe('Nuki Instance', function () {
       var counter = 0;
 
@@ -71,6 +89,25 @@ describe('Nuki Bridge API', function () {
       it('should get lock state', function () {
         return nuki.lockState().then(function (result) {
           assert.equal(result, API.lockState.LOCKED);
+        });
+      });
+    });
+  });
+
+  describe('Bridge Discovery', function () {
+    before(function () {
+      API.DiscoveredBridge.enableTestMode();
+    });
+
+    it('should be able to get all local bridges', function () {
+      return API.DiscoveredBridge.discover().then(function (bridges) {
+        assert.ok(bridges.length);
+
+        return bridges[0].connect('token').then(function (bridge) {
+          assert.ok(bridge);
+          assert.ok(bridge.token);
+
+          bridgeInstance = bridge;
         });
       });
     });
