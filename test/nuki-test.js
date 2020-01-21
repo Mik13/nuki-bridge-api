@@ -49,10 +49,6 @@ describe('Nuki Bridge API', function () {
       });
     });
 
-    it('should be able to get one nuki with wrong id without validation', function () {
-      return bridgeInstance.get(-1, true);
-    });
-
     describe('Nuki Instance', function () {
       var counter = 0;
 
