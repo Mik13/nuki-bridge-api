@@ -22,7 +22,7 @@
   "devDependencies": {
     "eslint": "^6.6.0",
     "minimist": "^1.2.5",
-    "mocha": "^8.2.1",
+    "mocha": "^10.2.0",
     "nukiio-dummy-bridge": "git://github.com/Mik13/nukiio-dummy-bridge.git",
     "sinon": "^7.5.0"
   }
